@@ -1,0 +1,9 @@
+demo/app/build/
+demo/.gradle/
+demo/.idea/
+demo/demo.iml
+demo/gradle/
+demo/gradlew
+demo/gradlew.bat
+demo/local.properties
+demo/app/app.iml
