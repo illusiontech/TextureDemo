@@ -16,3 +16,4 @@ demo2/gradlew
 demo2/gradlew.bat
 demo2/local.properties
 demo2/app/app.iml
+demo2/app/.externalNativeBuild
