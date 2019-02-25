@@ -10,7 +10,7 @@ demo/app/app.iml
 demo2/app/build/
 demo2/.gradle/
 demo2/.idea/
-demo2/demo.iml
+demo2/demo2.iml
 demo2/gradle/
 demo2/gradlew
 demo2/gradlew.bat
