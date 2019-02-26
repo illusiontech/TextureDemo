@@ -20,6 +20,7 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.Gdx2DPixmap;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.gdg.utils.Wrapper;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -96,7 +97,7 @@ public class Pixmap implements Disposable {
 	 * @param blending the blending type */
 	public static void setBlending (Blending blending) {
 		Pixmap.blending = blending;
-		Gdx2DPixmap.setBlend(blending == Blending.None ? 0 : 1);
+		Wrapper.setBlend(blending == Blending.None ? 0 : 1);
 	}
 
 	/** Sets the type of interpolation {@link Filter} to be used in conjunction with

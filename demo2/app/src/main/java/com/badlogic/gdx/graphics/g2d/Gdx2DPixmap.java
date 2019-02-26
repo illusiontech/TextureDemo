@@ -24,6 +24,7 @@ import java.nio.ByteBuffer;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.gdg.utils.Wrapper;
 
 /** @author mzechner */
 public class Gdx2DPixmap implements Disposable {
@@ -48,12 +49,12 @@ public class Gdx2DPixmap implements Disposable {
 	long[] nativeData = new long[4];
 
 	static {
-		setBlend(GDX2D_BLEND_SRC_OVER);
-		setScale(GDX2D_SCALE_LINEAR);
+		Wrapper.setBlend(GDX2D_BLEND_SRC_OVER);
+		Wrapper.setScale(GDX2D_SCALE_LINEAR);
 	}
 
 	public Gdx2DPixmap (byte[] encodedData, int offset, int len, int requestedFormat) throws IOException {
-		pixelPtr = load(nativeData, encodedData, offset, len);
+		pixelPtr = Wrapper.load(nativeData, encodedData, offset, len);
 		if (pixelPtr == null) throw new IOException("Error loading pixmap: " + getFailureReason());
 
 		basePtr = nativeData[0];
@@ -91,7 +92,7 @@ public class Gdx2DPixmap implements Disposable {
 
 	/** @throws GdxRuntimeException if allocation failed. */
 	public Gdx2DPixmap (int width, int height, int format) throws GdxRuntimeException {
-		pixelPtr = newPixmap(nativeData, width, height, format);
+		pixelPtr = Wrapper.newPixmap(nativeData, width, height, format);
 		if (pixelPtr == null) throw new GdxRuntimeException("Error loading pixmap.");
 
 		this.basePtr = nativeData[0];
@@ -121,11 +122,11 @@ public class Gdx2DPixmap implements Disposable {
 	}
 
 	public void dispose () {
-		free(basePtr);
+		Wrapper.free(basePtr);
 	}
 
 	public void clear (int color) {
-		clear(basePtr, color);
+		Wrapper.clear(basePtr, color);
 	}
 
 	public void setPixel (int x, int y, int color) {
@@ -161,12 +162,12 @@ public class Gdx2DPixmap implements Disposable {
 	}
 
 	public void drawPixmap (Gdx2DPixmap src, int srcX, int srcY, int dstX, int dstY, int width, int height) {
-		drawPixmap(src.basePtr, basePtr, srcX, srcY, width, height, dstX, dstY, width, height);
+		Wrapper.drawPixmap(src.basePtr, basePtr, srcX, srcY, width, height, dstX, dstY, width, height);
 	}
 
 	public void drawPixmap (Gdx2DPixmap src, int srcX, int srcY, int srcWidth, int srcHeight, int dstX, int dstY, int dstWidth,
 		int dstHeight) {
-		drawPixmap(src.basePtr, basePtr, srcX, srcY, srcWidth, srcHeight, dstX, dstY, dstWidth, dstHeight);
+		Wrapper.drawPixmap(src.basePtr, basePtr, srcX, srcY, srcWidth, srcHeight, dstX, dstY, dstWidth, dstHeight);
 	}
 
 	public static Gdx2DPixmap newPixmap (InputStream in, int requestedFormat) {

@@ -28,6 +28,7 @@ import java.nio.ShortBuffer;
 
 import com.badlogic.gdx.math.Matrix3;
 import com.badlogic.gdx.math.Matrix4;
+import com.gdg.utils.Wrapper;
 
 /** Class with static helper methods to increase the speed of array/direct buffer and direct buffer/direct buffer transfers
  * 
@@ -507,14 +508,14 @@ public final class BufferUtils {
 				throw new IllegalArgumentException("buffer not allocated with newUnsafeByteBuffer or already disposed");
 		}
 		allocatedUnsafe -= size;
-		freeMemory(buffer);
+		Wrapper.freeMemory(buffer);
 	}
 
 	/** Allocates a new direct ByteBuffer from native heap memory using the native byte order. Needs to be disposed with
 	 * {@link #freeMemory(ByteBuffer)}.
 	 * @param numBytes */
 	public static ByteBuffer newUnsafeByteBuffer (int numBytes) {
-		ByteBuffer buffer = newDisposableByteBuffer(numBytes);
+		ByteBuffer buffer = Wrapper.newDisposableByteBuffer(numBytes);
 		buffer.order(ByteOrder.nativeOrder());
 		allocatedUnsafe += numBytes;
 		synchronized(unsafeBuffers) {
