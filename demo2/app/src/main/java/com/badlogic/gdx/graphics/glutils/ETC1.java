@@ -32,6 +32,7 @@ import com.badlogic.gdx.utils.BufferUtils;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.StreamUtils;
+import com.gdg.utils.Wrapper;
 
 /** Class for encoding and decoding ETC1 compressed images. Also provides methods to add a PKM header.
  * @author mzechner */
@@ -79,8 +80,8 @@ public class ETC1 {
 				StreamUtils.closeQuietly(in);
 			}
 
-			width = getWidthPKM(compressedData, 0);
-			height = getHeightPKM(compressedData, 0);
+			width = Wrapper.getWidthPKM(compressedData, 0);
+			height = Wrapper.getHeightPKM(compressedData, 0);
 			dataOffset = PKM_HEADER_SIZE;
 			compressedData.position(dataOffset);
 			checkNPOT();
@@ -178,8 +179,8 @@ public class ETC1 {
 
 		if (etc1Data.hasPKMHeader()) {
 			dataOffset = 16;
-			width = ETC1.getWidthPKM(etc1Data.compressedData, 0);
-			height = ETC1.getHeightPKM(etc1Data.compressedData, 0);
+			width = Wrapper.getWidthPKM(etc1Data.compressedData, 0);
+			height = Wrapper.getHeightPKM(etc1Data.compressedData, 0);
 		} else {
 			dataOffset = 0;
 			width = etc1Data.width;
@@ -188,7 +189,7 @@ public class ETC1 {
 
 		int pixelSize = getPixelSize(format);
 		Pixmap pixmap = new Pixmap(width, height, format);
-		decodeImage(etc1Data.compressedData, dataOffset, pixmap.getPixels(), 0, width, height, pixelSize);
+		Wrapper.decodeImage(etc1Data.compressedData, dataOffset, pixmap.getPixels(), 0, width, height, pixelSize);
 		return pixmap;
 	}
 
